@@ -16,9 +16,9 @@ class UserProfileManger(BaseUserManager):
             raise ValueError('User must have an enter email address')
 
         email= self.normalize_email(email)
-        use = self.model(email=email,name=name)
+        user = self.model(email=email,name=name)
 
-        user.set_password(password) # password is in hash and you can not see into text.
+        user.set_password(password)
         user.save(using=self.db)
 
         return user
@@ -45,7 +45,7 @@ class UserProfile(AbstractBaseUser,PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name']
-    
+
     def get_full_name(self):
         """ retrieve full name of user """
         return self.name
